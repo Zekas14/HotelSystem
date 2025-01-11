@@ -1,5 +1,6 @@
 using HotelSystem.Features.RoomManagement.RoomTypes.Commands;
 using HotelSystem.Features.RoomManagement.RoomTypes.Queries;
+using HotelSystem.Helper;
 using HotelSystem.ViewModels;
 using HotelSystem.ViewModels.RoomManagment.RoomTypes;
 using MediatR;
@@ -30,9 +31,32 @@ namespace HotelSystem.Controllers
         {
             var response = await _mediator.Send(new GetRoomTypesQuery());
 
-            //return response;
-
-            return Enumerable.Empty<RoomTypeViewModel>();
+            var result = response.Select(c => new RoomTypeViewModel
+            {
+               
+                Name = c.Name,
+                Price = c.Price,
+            });       
+           
+            return result;
         }
+
+        [HttpPost("update")]
+        public Task<ResponseViewModel<bool>> EDitRoomType(int id, UpdateRoomTypeViewModel viewModel)
+        {
+            var Response = _mediator.Send(new EditRoomTtypeCommand(id, viewModel.Name, viewModel.Price));
+
+            return Response;
+        }
+
+        [HttpPost("Delete")]
+
+        public async Task<ResponseViewModel<bool>> DeleteRoomType(int id)
+        {
+            var response = await _mediator.Send(new DeleteRoomTypeCommand(id));
+
+            return response;
+        }
+
     }
 }

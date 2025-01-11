@@ -1,8 +1,12 @@
 
+using AutoMapper;
 using Braintree;
 using HotelSystem.Data;
 using HotelSystem.Data.Repository;
+using HotelSystem.Helper;
+using HotelSystem.Models.RoomManagement;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace HotelSystem
@@ -35,7 +39,17 @@ namespace HotelSystem
             });
             builder.Services.AddDbContext<Context>();
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
+            
+            
+            builder.Services.AddAutoMapper(typeof(Program).Assembly);
+
+
             var app = builder.Build();
+
+            AutoMapperServices.mapper = app.Services.GetService<IMapper>();
+            
+
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

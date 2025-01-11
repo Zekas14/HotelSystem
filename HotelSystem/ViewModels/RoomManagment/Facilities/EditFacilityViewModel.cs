@@ -1,6 +1,6 @@
-﻿namespace HotelSystem.Controllers
+﻿namespace HotelSystem.ViewModels.RoomManagment.Facilities
 {
-    public class RoomTypeViewModel
+    public class EditFacilityViewModel
     {
         public int ID { get; set; }
         public string Name { get; set; }

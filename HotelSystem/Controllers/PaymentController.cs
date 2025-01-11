@@ -1,4 +1,5 @@
-﻿using HotelSystem.Features.Payment_Processing.Commands;
+﻿
+using HotelSystem.Features.PaymentProcessing.Commands;
 using HotelSystem.ViewModels;
 using HotelSystem.ViewModels.PaymentProcessing;
 using MediatR;

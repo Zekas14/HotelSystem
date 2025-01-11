@@ -1,5 +1,5 @@
-﻿using HotelSystem.Data.Repository;
-using HotelSystem.Models.Enums;
+﻿using HotelSystem.Data.Enums;
+using HotelSystem.Data.Repository;
 using HotelSystem.Models.PaymentProcessing;
 using HotelSystem.ViewModels;
 using MediatR;

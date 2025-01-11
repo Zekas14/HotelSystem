@@ -1,6 +1,6 @@
-﻿using HotelSystem.Data.Repository;
+﻿using HotelSystem.Data.Enums;
+using HotelSystem.Data.Repository;
 using HotelSystem.Features.RoomReservations.Queries;
-using HotelSystem.Models.Enums;
 using HotelSystem.Models.ReservationManagement;
 using HotelSystem.ViewModels;
 using HotelSystem.ViewModels.RoomReservations;

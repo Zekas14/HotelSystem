@@ -1,5 +1,7 @@
 ﻿using HotelSystem.Data.Repository;
+
 using HotelSystem.Models.RoomManagement;
+using HotelSystem.ViewModels;
 using MediatR;
 
 namespace HotelSystem.Features.RoomManagement.RoomTypes.Queries
@@ -16,7 +18,10 @@ namespace HotelSystem.Features.RoomManagement.RoomTypes.Queries
 
         public async Task<bool> Handle(IsRoomTypeExistsQuery request, CancellationToken cancellationToken)
         {
-            return await _repository.AnyAsync(x => x.Name == request.name);
+            var exist = await _repository.AnyAsync(x => x.Name == request.name);
+            if (exist) return true ;
+
+            return false;
         }
     }
 }

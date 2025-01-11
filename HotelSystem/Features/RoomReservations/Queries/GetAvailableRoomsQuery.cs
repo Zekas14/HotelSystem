@@ -1,4 +1,5 @@
 ﻿using HotelSystem.Data.Repository;
+using HotelSystem.Features.RoomManagement.Rooms.Queries;
 using HotelSystem.Models.ReservationManagement;
 using HotelSystem.ViewModels.RoomReservations;
 using MediatR;

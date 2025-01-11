@@ -1,13 +1,14 @@
-﻿using HotelSystem.Data.Repository;
+﻿using HotelSystem.Data.Enums;
+using HotelSystem.Data.Repository;
 using HotelSystem.Features.RoomManagement.RoomTypes.Queries;
-using HotelSystem.Models.Enums;
+using HotelSystem.Helper;
 using HotelSystem.Models.RoomManagement;
 using HotelSystem.ViewModels;
 using MediatR;
 
 namespace HotelSystem.Features.RoomManagement.RoomTypes.Commands
 {
-    public record AddRoomTypeCommand(string name, double price) : IRequest<ResponseViewModel<bool>>;
+    public record AddRoomTypeCommand(string Name, double Price) : IRequest<ResponseViewModel<bool>>;
 
     public class AddRoomTypeCommandHandler : IRequestHandler<AddRoomTypeCommand, ResponseViewModel<bool>>
     {
@@ -28,35 +29,32 @@ namespace HotelSystem.Features.RoomManagement.RoomTypes.Commands
             if (!response.IsSuccess)
                 return response;
 
-            _repository.Add(new RoomType
-            {
-                Name = request.name,
-                Price = request.price,
-            });
-
-            return response;
+            var roomtype = request.MapTo<RoomType>();   
+            _repository.Add(roomtype);
+            _repository.SaveChanges();
+            return  response;
         }
 
         private async Task<ResponseViewModel<bool>> ValidateRequest(AddRoomTypeCommand request)
         {
-            if(string.IsNullOrEmpty(request.name))
+            if(string.IsNullOrEmpty(request.Name))
             {
-                return new FaluireResponseViewModel<bool>(ErrorCode.FieldIsEmpty, "Name is required");
+                return new FaluireResponseViewModel<bool>(ErrorCode.FieldIsEmpty ,"yoy should but name ") ;
             }
 
-            if (request.price <= 0)
+            if (request.Price <= 0)
             {
-                return new FaluireResponseViewModel<bool>(ErrorCode.InvalidInput, "Price must be greater than Zero");
+                return new FaluireResponseViewModel<bool>(ErrorCode.InvalidInput, "Price must be greater than 0");
             }
 
-            var roomtypeExists = await _mediator.Send(new IsRoomTypeExistsQuery(request.name));
+            var roomtypeExists = await _mediator.Send(new IsRoomTypeExistsQuery(request.Name));
 
-            if(roomtypeExists)
+            if (roomtypeExists)
             {
                 return new FaluireResponseViewModel<bool>(ErrorCode.ItemAlreadyExists);
             }
 
-            return new SuccessResponseViewModel<bool>(true);
+            return  new SuccessResponseViewModel<bool>(true);
         }
     }
 }
