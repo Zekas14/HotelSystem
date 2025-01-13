@@ -17,7 +17,7 @@ namespace HotelSystem.ViewModels.profile.RoomManagmentProfile
             CreateMap<Room, RoomDTO>()
                 .ForMember(dst => dst.Faciltes, opt => opt.MapFrom(s => s.RoomFacilities.Select(s => s.Facility.Name).ToList()))
                 .ForMember(dst=> dst.Name , opt=> opt.MapFrom(s=> s.RoomType.Name))
-                .ForMember(dst=> dst.Price , opt=> opt.MapFrom(s=>s.RoomType.Price)); 
+                .ForMember(dst=> dst.Price , opt=> opt.MapFrom(s=>s.RoomType.Price + s.RoomFacilities.Sum(c=> c.Facility.Price))); 
 
 
         }

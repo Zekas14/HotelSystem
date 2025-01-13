@@ -1,5 +1,6 @@
 ﻿using HotelSystem.Data.Enums;
 using HotelSystem.Data.Repository;
+using HotelSystem.Features.RoomManagement.Rooms.Queries;
 using HotelSystem.Features.RoomManagement.RoomTypes.Commands;
 using HotelSystem.Features.RoomManagement.RoomTypes.Queries;
 using HotelSystem.Helper;
